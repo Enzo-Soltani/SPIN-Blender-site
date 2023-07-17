@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://kit.fontawesome.com/e652335eb4.js" crossorigin="anonymous"></script>
+<style>
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border box;
+}
+
+.wrapper {
+	width: 100%;
+	height: 100vh;
+	overflow-y: scroll;
+	scroll-snap-type: y mandatory;
+}
+
+section {
+	height: 100vh;
+	position: relative;
+	scroll-snap-align: start;
+	z-index: -1;
+}
+
+.overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+
+
+#background_video {
+	width:100%;
+	height:100%;
+	object-fit: cover;
+	position: relative;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0; 
+	z-index: -1;
+}
+
+h1 {
+	color: white;
+	z-index: 1;
+	
+}
+
+.box#welcome {
+	position: absolute;
+	background: black;
+	opacity: 0.5;
+	z-index: 0;
+	padding: 10px;
+	width: 35%;
+	top: 35%;
+	left: 32.5%;
+	right: 0;
+	text-align: center;
+}
+
+a#scroll-btn {
+	display: block;
+	position: absolute;
+	height: 40px;
+	width: 25px;
+	border: 3px solid black;
+	left:50%;
+	bottom: 100px;
+	border-radius: 11px;
+	z-index: 1;
+	opacity: 0.7;
+}
+
+a#scroll-btn:before {
+	position: absolute;
+	margin: auto;
+	left: 9px;
+	content:"";
+	top:7px;
+	height:	7px;
+	width: 7px;
+	background: black;
+	border-radius: 50%;
+	animation: move-down 2s infinite;
+	z-index: 1;
+	opacity: 0.7;	
+}
+
+@keyframes move-down {
+	30% {
+		opacity: 0.7;
+	}
+
+	100% {
+		transform: translateY(20px);
+		opacity: 0;
+	}
+}
+
+a#scroll-btn:after {
+	position: absolute;
+	content: "SCROLL DOWN";
+	width: 150px;
+	display: block;
+	text-align: center;
+	left: -62.5px;
+	bottom: -50px;
+	font-size: 20px;
+	color: black;
+	opacity: 0.9;
+}
+
+span#nav {
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	padding: 1px 8px;
+	color: white;
+	font-size: 30px;
+	cursor: pointer;
+	background: black;
+	border: 1px solid black;
+	border-radius: 50%;
+}
+
+a#back-to-top {
+	position: fixed;
+	bottom: 20px;
+	left: 20px;
+	cursor: pointer;
+	display: flex;
+	padding: 20px;
+	margin-top: 10px;
+	background: black;
+	border: 1px solid black;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+}
+
+.down-arrow {
+	position: absolute;
+	border: 3px solid white;
+	border-width: 0 3px 3px 0;
+	display: inline-block;
+	padding: 5px;	
+	transform: rotate(45deg);
+	left:33%;
+	transition: 0.2s;
+}
+
+.down-arrowB {
+	position: absolute;
+	border: 3px solid white;
+	border-width: 0 3px 3px 0;
+	display: inline-block;
+	padding: 5px;	
+	transform: rotate(225deg);
+	left:33%;
+	transition: 0.2s;
+}
+
+.circleB {
+	display: flex;
+	padding: 20px;
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	background: black;
+	border: 1px solid black;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+}
+
+.drop-downB .dropdown-contentB {
+	display: none; 
+	position: absolute; 
+	bottom: 40px;
+	left:-20px;
+	width: 80px;
+}
+
+.dropdown-contentB a#optionBox {
+	display:block;
+	position: relative;
+	margin-bottom: 5px;
+}
+
+.drop-downB input#options { 
+  opacity: 0;
+  width: 40px;
+  height: 40px;
+  margin: -40px;
+  z-index:5;
+}
+
+.circle {
+	display: flex;
+	padding: 20px;
+	position: fixed;
+	right: 20px;
+	top: 20px;
+	background: black;
+	border: 1px solid black;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+}
+
+.drop-down .dropdown-content {
+	display: none; 
+	position: absolute; 
+	top: 40px;
+	left:0;
+}
+
+.drop-down input#right-menu { 
+  opacity: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 50%;
+  margin: -40px;
+  z-index:5;
+}
+
+input#right-menu:checked ~ span.dropdown-content {display: block;}
+
+input#options:checked ~ span.dropdown-contentB {display: block;}
+
+input#right-menu:checked + span.down-arrow {transform: rotate(225deg);}
+
+input#options:checked + span.down-arrowB {transform: rotate(45deg);}
+
+.dropdown-content .circle2 {
+	display: flex;
+	padding: 20px;
+	position: relative;
+	margin-top: 10px;
+	background: black;
+	border: 1px solid black;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+}
+
+.icon::before {
+	display: inline-block;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+}
+
+.files::before {
+	font: var(--fa-font-solid);
+	content: "\f07b";
+}
+
+.files::before {
+	font: var(--fa-font-solid);
+	content: "\f15b";
+}
+
+.time::before {
+	font: var(--fa-font-solid);
+	content: "\f073";
+}
+
+i {
+	font-size: 15px;
+	margin: -15px;
+	color: white;
+}
+
+.contrast {
+	mix-blend-mode: difference;
+}
+
+.darken {
+	mix-blend-mode: darken;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="wrapper">
+
+<div id="myNav" class="overlay">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <div class="overlay-content">
+    <a href="gallery.html">Gallery</a>
+    <a href="home.html">Home</a>
+    <a href="learning.html">Learning</a>
+    <a href="about.html">About</a>
+  </div>
+</div>
+
+<script>
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+}
+</script>
+
+<span class="contrast" id="nav" onclick="openNav()">&#9776;</span>
+<a href="#welcome-section" class="contrast" id="back-to-top"><i>&#8593;</i></a>
+
+<div class="circle drop-down contrast">
+	<input type="checkbox" id="right-menu">
+	<span class="down-arrow"></span>
+	<span class="dropdown-content">
+		<a href="#"> <div class="circle2 contrast"><i class="fa-solid fa-calendar-days fa-xl"></i></div></a>
+		<a href="#"> <div class="circle2 contrast"><i class="fa-solid fa-file fa-xl"></i></div></a>
+		<a href="#"> <div class="circle2 contrast"><i class="fa-solid fa-folder fa-xl"></i></div></a>
+	</span>
+</div>
+
+<div class="circleB drop-downB contrast">
+	<input type="checkbox" id="options" checked>
+	<span class="down-arrowB"></span>
+	<span class="dropdown-contentB">
+		<a href="#" id="optionBox" style="color: white; text-decoration: none;"> <p class="contrast"><input type="radio" name="radio" checked>videos</p></a>
+		<a href="#" id="optionBox" style="color: white; text-decoration: none;"> <p class="contrast"><input type="radio" name="radio">images</p></a>
+		<a href="#" id="optionBox" style="color: white; text-decoration: none;"> <p class="contrast"><input type="radio" name="radio">both</p></a>
+	</span>
+</div>
+
+<section id="welcome-section">
+
+	<video id="background_video" autoplay muted loop>
+		<source src="C:\Users\esolt\OneDrive\Desktop\Blender Renders\cool_bouncy_background0001-3994.mp4" type="video/mp4">
+	</video>
+
+<div class="box" id="welcome">
+<h1 style="z-index= 1; opacity: 1;" id="anchor-top">Welcome to Enzo's SPIN Website</h1>
+</div>
+
+<a id="scroll-btn"></a>
+
+</section>
+
+<section>
+
+	<video id="background_video" class="clip" autoplay muted loop>
+   		<source src="C:\Users\esolt\OneDrive\Desktop\Blender Renders\Hollow_Narration1-6006.mp4" type="video/mp4">
+   	</video>
+
+</section>
+
+<section>
+
+	<video id="background_video" class="clip" autoplay muted loop>
+   		<source src="C:\Users\esolt\OneDrive\Desktop\Blender Renders\second_render_material world0001-0961.mp4" type="video/mp4">
+   	</video>
+
+</section>
+
+<section style="background-color: white;" class="darken">
+
+</section>
+
+</div>
+
+<script>
+
+	let clip = document.querySelectorAll('.clip');
+
+	for(var i = 0; i<clip.length; i++){
+		clip[i].addEventListener('mouseenter', function(){
+			this.play;
+		})
+		clip[i].addEventListener('mouseleave', function(){
+			this.pause;
+		})
+	}
+
+</script>
+
+</body>
+</html>

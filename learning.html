@@ -1,0 +1,634 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://kit.fontawesome.com/e652335eb4.js" crossorigin="anonymous"></script>
+<style>
+
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border box;
+}
+
+section {
+	position: relative;
+	height: 100vh;
+	z-index: -1;
+}
+
+section#keyword-section {
+	height: 150vh;
+}
+
+.overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+
+
+#background_video {
+	width:100%;
+	height:100%;
+	object-fit: cover;
+	position: relative;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0; 
+	z-index: -1;
+}
+
+h1 {
+	color: white;
+	z-index: 1;
+	
+}
+
+.box#welcome {
+	position: absolute;
+	background: black;
+	opacity: 0.5;
+	z-index: 0;
+	padding: 10px;
+	width: 35%;
+	top: 35%;
+	left: 32.5%;
+	right: 0;
+	text-align: center;
+}
+
+a#scroll-btn {
+	display: block;
+	position: absolute;
+	height: 40px;
+	width: 25px;
+	border: 3px solid black;
+	left:50%;
+	bottom: 100px;
+	border-radius: 11px;
+	z-index: 1;
+	opacity: 0.7;
+}
+
+a#scroll-btn:before {
+	position: absolute;
+	margin: auto;
+	left: 9px;
+	content:"";
+	top:7px;
+	height:	7px;
+	width: 7px;
+	background: black;
+	border-radius: 50%;
+	animation: move-down 2s infinite;
+	z-index: 1;
+	opacity: 0.7;	
+}
+
+@keyframes move-down {
+	30% {
+		opacity: 0.7;
+	}
+
+	100% {
+		transform: translateY(20px);
+		opacity: 0;
+	}
+}
+
+a#scroll-btn:after {
+	position: absolute;
+	content: "SCROLL DOWN";
+	width: 150px;
+	display: block;
+	text-align: center;
+	left: -62.5px;
+	bottom: -50px;
+	font-size: 20px;
+	color: black;
+	opacity: 0.9;
+}
+
+span#nav {
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	padding: 1px 8px;
+	color: white;
+	font-size: 30px;
+	cursor: pointer;
+	background: black;
+	border: 1px solid black;
+	border-radius: 50%;
+}
+
+a#back-to-top {
+	position: fixed;
+	bottom: 20px;
+	left: 20px;
+	cursor: pointer;
+	display: flex;
+	padding: 20px;
+	margin-top: 10px;
+	background: black;
+	border: 1px solid black;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+}
+
+.contrast {
+	mix-blend-mode: difference;
+}
+
+.darken {
+	mix-blend-mode: darken;
+}
+
+/* Style the tab */
+.keyword {
+  position: sticky;
+  top: 0;
+  float: left;
+  background-color: #f1f1f1;
+  width: 20%;
+  max-height: 150vh;
+  padding: 5px;
+  margin-top: 6%;
+  margin-left: 6%;
+  z-index: 1;
+}
+
+/* Style the buttons inside the tab */
+.keyword button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.keyword button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.keyword button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.keywordcontent {
+  position: relative;
+  top: 0px;
+  float: right;
+  width: 65%;
+  height: auto;
+  min-height: 100vh;
+  padding: 10px;
+  background-color: tan;
+  margin-top: 6%;
+  margin-right: 6%;
+  z-index: 1;
+}
+
+.keywordcontent a {
+	position: relative;
+	color: blue;
+}
+
+.keywordcontent .tags {
+	display: inline;
+	background-color: yellow;
+	border: 1px solid black;
+	padding: 5px;
+	width: 100px;
+	height: 100px;
+}
+
+.keywordcontent .tag_frame {
+	display: none;
+	position: relative;
+	top: 10px;
+	width: 100%;
+}
+
+.keywordcontent .tags.active {
+	background-color: gray;
+}
+
+.keyword h5 {
+	color: black;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	font-size: 20px;
+}
+
+
+.down-arrow {
+	position: absolute;
+	border: 3px solid white;
+	border-width: 0 3px 3px 0;
+	display: inline-block;
+	padding: 5px;	
+	transform: rotate(45deg);
+	left:33%;
+	transition: 0.2s;
+}
+
+.circle {
+	display: flex;
+	padding: 20px;
+	position: fixed;
+	right: 20px;
+	top: 20px;
+	background: black;
+	border: 1px solid black;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+}
+
+.drop-down .dropdown-content {
+	display: none; 
+	position: absolute; 
+	top: 40px;
+	left:0;
+}
+
+.drop-down input { 
+  opacity: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 50%;
+  margin: -40px;
+  z-index:5;
+}
+
+input:checked ~ span.dropdown-content {display: block;}
+
+input:checked + span.down-arrow {transform: rotate(225deg);}
+
+.dropdown-content .circle2 {
+	display: flex;
+	padding: 20px;
+	position: relative;
+	margin-top: 10px;
+	background: black;
+	border: 1px solid black;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+}
+
+.icon::before {
+	display: inline-block;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+}
+
+.files::before {
+	font: var(--fa-font-solid);
+	content: "\f07b";
+}
+
+.files::before {
+	font: var(--fa-font-solid);
+	content: "\f15b";
+}
+
+.time::before {
+	font: var(--fa-font-solid);
+	content: "\f073";
+}
+
+i {
+	font-size: 15px;
+	margin: -15px;
+	color: white;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<p id="anchor-top"></p>
+
+<div class="wrapper">
+
+<div id="myNav" class="overlay">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <div class="overlay-content">
+    <a href="gallery.html">Gallery</a>
+    <a href="home.html">Home</a>
+    <a href="learning.html">Learning</a>
+    <a href="about.html">About</a>
+  </div>
+</div>
+
+<script>
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+}
+</script>
+
+<span class="contrast" id="nav" onclick="openNav()">&#9776;</span>
+<a href="#anchor-top" class="contrast" id="back-to-top" >&#8593;</a>
+
+<div class="circle drop-down contrast">
+	<input type="checkbox">
+	<span class="down-arrow"></span>
+	<span class="dropdown-content">
+		<a href="#"> <div class="circle2 contrast"><i class="fa-solid fa-calendar-days fa-xl"></i></div></a>
+		<a href="#"> <div class="circle2 contrast"><i class="fa-solid fa-file fa-xl"></i></div></a>
+		<a href="#"> <div class="circle2 contrast"><i class="fa-solid fa-folder fa-xl"></i></div></a>
+	</span>
+</div>
+
+<section id="welcome-section">
+
+	<video id="background_video" autoplay muted loop>
+		<source src="C:\Users\esolt\OneDrive\Desktop\Blender Renders\cool_bouncy_background0001-3994.mp4" type="video/mp4">
+	</video>
+
+<div class="box" id="welcome">
+<h1 style="z-index= 1; opacity: 1;">Welcome to Enzo's SPIN Website</h1>
+</div>
+
+<a id="scroll-btn"></a>
+
+</section>
+
+<span class="keyword">
+
+	<h5>Keywords:</h5>
+
+	<button class="keywordlinks" onclick="openCity(event, 'Blender')" id="defaultOpenKeyword">Blender</button>
+	<button class="keywordlinks" onclick="openCity(event, 'Dielectric Screening')">Dielectric</button>
+	<button class="keywordlinks" onclick="openCity(event, 'MatSE')">MatSE</button>
+	<button class="keywordlinks" onclick="openCity(event, 'Visualization')">Visualization</button>
+</span>
+
+<span id="Blender" class="keywordcontent">
+	<h3>Blender</h3>
+	<p>Blender is a 3D visualization tool that our research is using to be able to visualize Materials Science research. Much of this work includes specific molecules that we are trying to highlight and inform audiences about.
+
+	<br><br>
+
+	<span class="tags" onclick="openFrame(event, 'Wiki_Blender')" id="defaultOpenFrame">Wiki</span>
+
+	</p>
+
+	<span class="tag_frame" id="Wiki_Blender">
+		<iframe src="https://en.wikipedia.org/wiki/Blender_(software)#" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+</span>
+
+<span id="MatSE" class="keywordcontent">
+	<h3>MatSE</h3>
+	<p>MatSE short for Materials Science & Engineering is a field in which materials and their properties are studied often by looking at their structure at the atomic level.
+
+	<br><br>
+
+	<span class="tags" onclick="openFrame(event, 'Wiki_MatSE')" id="defaultOpenFrame">Wiki</span>
+
+	</p>
+
+	<span class="tag_frame" id="Wiki_MatSE">
+		<iframe src="https://en.wikipedia.org/wiki/Materials_science#" height="700px" width="100%"></iframe>
+	</span>
+</span>
+
+<span id="Visualization" class="keywordcontent">
+	<h3>Visualization</h3>
+	<p>The goal of the project is to help visualize Materials Science research.
+
+	<br><br>
+
+	<span class="tags" onclick="openFrame(event, 'Wiki_Visualization')" id="defaultOpenFrame">Wiki</span>
+	<span class="tags" onclick="openFrame(event, 'Big_Animation_Plan')">Big Animation Plan</span>
+
+	</p>
+
+	<span class="tag_frame" id="Wiki_Visualization">
+		<iframe src="https://en.wikipedia.org/wiki/Visualization_(graphics)" height="700px" width="100%"></iframe>
+	</span>
+
+	<span class="tag_frame" id="Big_Animation_Plan">
+		<iframe src="https://docs.google.com/presentation/d/1fJpi3p9nHsDOla84Oq3wz_TDu7e6tGDzVNoQrzXWmh0/edit?usp=sharing" height="700px" width="100%"></iframe>
+	</span>
+
+</span>
+
+<span id="Dielectric Screening" class="keywordcontent">
+	<h3>Dielectric Screening</h3>
+	<p>The goal of the project is to help visualize Materials Science research.
+
+	<br><br>
+
+	<span class="tags" onclick="openFrame(event, 'Wiki_Dielectric')" id="defaultOpenFrame">Wiki</span>
+	<span class="tags" onclick="openFrame(event, 'What_is_a_Dielectric?')">What is a Dielectric?</span>
+	<span class="tags" onclick="openFrame(event, 'Perovskite_Dielectrics')">Perovskite Dielectrics</span>
+	<span class="tags" onclick="openFrame(event, 'What_is_an_Electric_Field?')">What is an Electric Field?</span>
+
+	<br><br>
+
+	<span class="tags" onclick="openFrame(event, 'What_is_an_Electric_Potential?')">What is an Electric Potential?</span>
+	<span class="tags" onclick="openFrame(event, 'What_is_a_Black_Body?')">What is a Black Body?</span>
+	<span class="tags" onclick="openFrame(event, 'Black_Body_Radiation')">Black Body Radiation</span>
+	<span class="tags" onclick="openFrame(event, 'The_Wave_Equation')">The Wave Equation</span>
+
+	<br><br>
+
+	<span class="tags" onclick="openFrame(event, 'What_are_Waves?')">What are Waves?</span>
+	<span class="tags" onclick="openFrame(event, 'What_is_Polarised_Light?')">What is Polarised Light?</span>
+	<span class="tags" onclick="openFrame(event, 'Malus_Law_&_Intensity')">Malus Law & Intensity</span>
+	<span class="tags" onclick="openFrame(event, 'Why_does_Light_Reflect?')">Why does Light Reflect?</span>
+
+	<br><br>
+
+	<span class="tags" onclick="openFrame(event, 'Polariser_cutting_Intensity')">Polariser cutting Intensity</span>
+	<span class="tags" onclick="openFrame(event, 'What_is_Heat?')">What is Heat?</span>
+	<span class="tags" onclick="openFrame(event, 'What_is_Energy?')">What is Energy?</span>
+	</p>
+
+	<span class="tag_frame" id="Wiki_Dielectric">
+		<iframe src="https://en.wikipedia.org/wiki/Dielectric" height="700px" width="100%"></iframe>
+		<p style="padding: 20px;">Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="What_is_a_Dielectric?">
+		<iframe src="https://www.youtube.com/embed/4hpLxJYEBHA" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="What_is_an_Electric_Field?">
+		<iframe src="https://www.youtube.com/embed/hrHCj09_dpc" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="What_is_an_Electric_Potential?">
+		<iframe src="https://www.youtube.com/embed/j3GrOKre__0" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="What_is_a_Black_Body?">
+		<iframe src="https://www.youtube.com/embed/EWqzg0iqNtw" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="Black_Body_Radiation">
+		<iframe src="https://www.youtube.com/embed/ugsvADj1wts" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="The_Wave_Equation">
+		<iframe src="https://www.youtube.com/embed/8Dtzv5vn8qA" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="What_are_Waves?">
+		<iframe src="https://www.youtube.com/embed/LoRRE2aG3AY" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="What_is_Polarised_Light?">
+		<iframe src="https://www.youtube.com/embed/U8FanZu4X1I" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="Malus_Law_&_Intensity">
+		<iframe src="https://www.youtube.com/embed/X3lDSVn8w_s" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="Why_does_Light_Reflect?">
+		<iframe src="https://www.youtube.com/embed/X3lDSVn8w_s" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="Polariser_cutting_Intensity">
+		<iframe src="https://www.youtube.com/embed/LDpJV7tuPBQ" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="What_is_Heat?">
+		<iframe src="https://www.youtube.com/embed/nkAIIs6N2T0" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="What_is_Energy?">
+		<iframe src="https://www.youtube.com/embed/ofomL1qI3xI" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+	<span class="tag_frame" id="Perovskite_Dielectrics">
+		<iframe src="https://www.youtube.com/embed/5oZWLKSDVBk" height="700px" width="100%"></iframe>
+		<p>Notes: ...</p>
+	</span>
+
+</span>
+
+<section id="keyword-section" style="background-color: white;" class="darken">
+
+<script>
+function openCity(evt, cityName) {
+  var i, keywordcontent, keywordlinks;
+  keywordcontent = document.getElementsByClassName("keywordcontent");
+  for (i = 0; i < keywordcontent.length; i++) {
+    keywordcontent[i].style.display = "none";
+  }
+  keywordlinks = document.getElementsByClassName("keywordlinks");
+  for (i = 0; i < keywordlinks.length; i++) {
+    keywordlinks[i].className = keywordlinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+document.getElementById("defaultOpenKeyword").click();
+
+</script>
+
+<script>
+function openFrame(evt, tag) {
+  var i, tag_frame, tags;
+  tag_frame = document.getElementsByClassName("tag_frame");
+  for (i = 0; i < tag_frame.length; i++) {
+    tag_frame[i].style.display = "none";
+  }
+  tags = document.getElementsByClassName("tags");
+  for (i = 0; i < tags.length; i++) {
+    tags[i].className = tags[i].className.replace(" active", "");
+  }
+  document.getElementById(tag).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+document.getElementById("defaultOpenFrame").click();
+
+</script>
+
+</section>
+
+</div>
+
+</body>
+</html>
